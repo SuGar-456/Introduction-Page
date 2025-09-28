@@ -243,12 +243,84 @@ export default function PortfolioSite() {
                       打开视频
                     </a>
                     )}
-
+                    {v.desc && (
+                        <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+                          {v.desc}
+                        </p>
+                      )}
               </CardContent>
             </Card>
           ))}
         </div>
       </Section>
+      
+      <Section id="gallery" title="Gallery">
+  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {renders.map((img, i) => (
+      <Card key={i} className="overflow-hidden group cursor-zoom-in" onClick={() => setLightbox({ open: true, index: i })}>
+        <div className="relative aspect-[4/3] bg-muted">
+          {/* 用 <img>，图片在 public/ 下可直接以 / 开头访问 */}
+          <img
+            src={img.src}
+            alt={img.title}
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+            loading="lazy"
+          />
+        </div>
+        <CardContent className="p-4">
+          <div className="text-sm font-medium">{img.title}</div>
+          {img.desc && <div className="text-xs text-muted-foreground mt-1">{img.desc}</div>}
+        </CardContent>
+      </Card>
+    ))}
+  </div>
+
+  {/* Lightbox（点击卡片放大预览） */}
+  {lightbox.open && (
+    <div
+      className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm grid place-items-center p-4"
+      onClick={() => setLightbox({ open: false, index: 0 })}
+    >
+      <div className="relative max-w-6xl w-full">
+        <img
+          src={renders[lightbox.index].src}
+          alt={renders[lightbox.index].title}
+          className="w-full h-auto rounded-2xl"
+        />
+        {/* 关闭按钮 */}
+        <button
+          className="absolute top-3 right-3 rounded-full bg-white/90 px-3 py-1 text-sm"
+          onClick={(e) => { e.stopPropagation(); setLightbox({ open: false, index: 0 }); }}
+        >
+          关闭
+        </button>
+        {/* 左右切换（可选） */}
+        {lightbox.index > 0 && (
+          <button
+            className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 rounded-full px-3 py-1 text-sm"
+            onClick={(e) => { e.stopPropagation(); setLightbox(s => ({ ...s, index: s.index - 1 })); }}
+          >
+            ←
+          </button>
+        )}
+        {lightbox.index < renders.length - 1 && (
+          <button
+            className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 rounded-full px-3 py-1 text-sm"
+            onClick={(e) => { e.stopPropagation(); setLightbox(s => ({ ...s, index: s.index + 1 })); }}
+          >
+            →
+          </button>
+        )}
+        {/* 标题/描述 */}
+        <div className="mt-3 text-white text-sm opacity-90">
+          <div className="font-medium">{renders[lightbox.index].title}</div>
+          {renders[lightbox.index].desc && <div className="text-white/80 mt-1">{renders[lightbox.index].desc}</div>}
+        </div>
+      </div>
+    </div>
+  )}
+</Section>
+
 
       <Section id="about" title="About">
         <div className="grid lg:grid-cols-3 gap-6 items-start">
