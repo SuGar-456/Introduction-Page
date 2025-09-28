@@ -386,10 +386,7 @@ export default function PortfolioSite() {
                   {s.icon}<span className="ml-2">{s.label}</span>
                 </a>
               ))}
-              <a className="inline-flex items-center justify-start rounded-2xl px-3 py-2 text-sm font-medium transition border bg-transparent hover:bg-neutral-100 border-neutral-300"
-                href="#" onClick={(e)=>{e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})}}>
-                <Download className="h-4 w-4 mr-2" /> 下载 PDF 简历（占位）
-              </a>
+             
             </CardContent>
           </Card>
         </div>
