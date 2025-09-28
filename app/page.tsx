@@ -128,19 +128,22 @@ const projects = [
 const videos = [
   {
     title: "《Recursive Breakout》Promotional video",
-    src: "https://drive.google.com/file/d/1r_IG0YEmtU_z0t8z_xsg-sJtnYKJjmeR/view?usp=sharing",
+    cnSrc: "http://t3aiodj0n.hn-bkt.clouddn.com/VRgame_A.mp4",
+    globalSrc: "https://drive.google.com/file/d/1r_IG0YEmtU_z0t8z_xsg-sJtnYKJjmeR/view?usp=sharing",
     poster: "/images/vr_demo.jpg",
     desc:"VR游戏 Recursive Breakout 宣传视频，目前该游戏暂未上架。"
   },
   {
     title: "《Recursive Breakout》Actual machine demonstration (VR screen recording)",
-    src: "https://drive.google.com/file/d/1R_Z1JEpkM9NylP4kUasHU06nTM1LSSGO/view?usp=sharing",
+    cnSrc: "http://t3aiodj0n.hn-bkt.clouddn.com/vrgame.mp4",
+    globalSrc: "https://drive.google.com/file/d/1R_Z1JEpkM9NylP4kUasHU06nTM1LSSGO/view?usp=sharing",
     poster: "https://your-cdn.example/posters/echoes.jpg",
     desc:"VR游戏 Recursive Breakout 实机演示，受限于VR内置录屏限制某些画面质量与特效展现不明显。"
   },
   {
     title: "《Echoes of the Witch’s Room》",
-    src: "https://drive.google.com/file/d/1XNL4mqf7aI9LkQ2XapNrBy9ahEFPIbEa/view?usp=sharing",
+    cnSrc: "http://t3aiodj0n.hn-bkt.clouddn.com/Echoes%20of%20the%20Witch%27s%20Room.mov",
+    globalSrc: "https://drive.google.com/file/d/1XNL4mqf7aI9LkQ2XapNrBy9ahEFPIbEa/view?usp=sharing",
     poster: "https://your-cdn.example/posters/360.jpg",
     desc:"VR游戏 Echoes of the Witch’s Room 实机演示，该项目专注于交互与音频设计，可以让没有音乐基础的人也能创造出听起来还不错的音乐。"
   },
@@ -161,6 +164,11 @@ const Tag = ({ children }: { children: React.ReactNode }) => (
 )
 
 export default function PortfolioSite() {
+  const [pref, setPref] = React.useState<"cn" | "global">(
+  () => (typeof window !== "undefined" && (localStorage.getItem("pref") as "cn"|"global")) || "cn"
+    
+);
+React.useEffect(() => { if (typeof window !== "undefined") localStorage.setItem("pref", pref); }, [pref]);
  const [lightbox, setLightbox] = React.useState<{open:boolean; g:number; i:number}>({
   open: false, g: 0, i: 0
 });
@@ -242,45 +250,83 @@ export default function PortfolioSite() {
         </div>
       </Section>
 
-      <Section id="videos" title="Video Demos">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {videos.map((v, i) => (
-            <Card key={i}>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-base">{v.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-            
-                {isDrive(v.src) ? (
-                    <div className="aspect-video w-full overflow-hidden rounded-xl">
-                      <iframe
-                        src={toDrivePreview(v.src)}
-                        className="w-full h-full"
-                        allow="autoplay; fullscreen"
-                        allowFullScreen
-                      />
-                    </div>
-                  ) : v.src.endsWith(".mp4") ? (
-                    <video className="w-full rounded-xl" controls preload="metadata" poster={v.poster}>
-                      <source src={v.src} type="video/mp4" />
-                      Your browser does not support the video tag.
-                    </video>
-                  ) : (
-                    <a className="w-full inline-flex items-center justify-center rounded-2xl px-3 py-2 text-sm font-medium transition border bg-white text-black hover:bg-neutral-100 border-neutral-200"
-                       href={v.src} target="_blank" rel="noreferrer">
-                      打开视频
-                    </a>
-                    )}
-                    {v.desc && (
-                        <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-                          {v.desc}
-                        </p>
-                      )}
-              </CardContent>
-            </Card>
-          ))}
+<CardContent>
+  {/* 源切换按钮（如果某个源没填就禁用） */}
+  <div className="flex gap-2 mb-3">
+    <button
+      disabled={!v.cnSrc}
+      onClick={() => setPref("cn")}
+      className={`border rounded-2xl px-3 py-1 text-sm disabled:opacity-50
+                  ${pref === "cn" ? "bg-black text-white" : "bg-white"}`}
+      title={v.cnSrc ? "使用国内源" : "无国内源"}
+    >
+      国内源
+    </button>
+    <button
+      disabled={!v.globalSrc}
+      onClick={() => setPref("global")}
+      className={`border rounded-2xl px-3 py-1 text-sm disabled:opacity-50
+                  ${pref === "global" ? "bg-black text-white" : "bg-white"}`}
+      title={v.globalSrc ? "使用 Global 源" : "无 Global 源"}
+    >
+      Global
+    </button>
+  </div>
+
+  {/* 选择要用的 URL（优先用用户选择；缺失时回退） */}
+  {(() => {
+    const url =
+      (pref === "cn" ? v.cnSrc : v.globalSrc) ||
+      v.cnSrc || v.globalSrc || v.src || "";
+
+    if (!url) {
+      return <div className="text-sm text-muted-foreground">暂无可用源</div>;
+    }
+
+    // 海外源如果是 Google Drive：用 iframe 预览
+    if (typeof isDrive === "function" && isDrive(url)) {
+      return (
+        <div className="aspect-video w-full overflow-hidden rounded-xl">
+          <iframe
+            src={toDrivePreview(url)}
+            className="w-full h-full"
+            allow="autoplay; fullscreen"
+            allowFullScreen
+          />
         </div>
-      </Section>
+      );
+    }
+
+    // 其他直链（如七牛 mp4）
+    if (url.endsWith(".mp4") || url.startsWith("/api/")) {
+      return (
+        <video className="w-full rounded-xl" controls preload="metadata" poster={v.poster} onContextMenu={(e)=>e.preventDefault()}>
+          <source src={url} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      );
+    }
+
+    // 其他外部页面：给出“打开视频”按钮
+    return (
+      <a
+        className="w-full inline-flex items-center justify-center rounded-2xl px-3 py-2 text-sm font-medium transition border bg-white text-black hover:bg-neutral-100 border-neutral-200"
+        href={url}
+        target="_blank"
+        rel="noreferrer"
+      >
+        打开视频
+      </a>
+    );
+  })()}
+
+  {v.desc && (
+    <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+      {v.desc}
+    </p>
+  )}
+</CardContent>
+
       
     <Section id="gallery" title="3D Gallery">
   <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
