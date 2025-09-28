@@ -287,48 +287,42 @@ React.useEffect(() => { if (typeof window !== "undefined") localStorage.setItem(
 
           {/* 选择当前 URL（优先用用户选择；缺失则回退） */}
           {(() => {
-            const url =
-              (pref === "cn" ? v.cnSrc : v.globalSrc) ||
-              v.cnSrc || v.globalSrc || "";
+  const url =
+    (pref === "cn" ? v.cnSrc : v.globalSrc) ||
+    v.cnSrc || v.globalSrc || "";
 
-            if (!url) return <div className="text-sm text-muted-foreground">暂无可用源</div>;
+  if (!url) return <div className="text-sm text-muted-foreground">暂无可用源</div>;
 
-            // 如果是 Google Drive：用 iframe 预览
-            if (typeof isDrive === "function" && isDrive(url)) {
-              return (
-                <div className="aspect-video w-full overflow-hidden rounded-xl">
-                  <iframe
-                    src={toDrivePreview(url)}
-                    className="w-full h-full"
-                    allow="autoplay; fullscreen"
-                    allowFullScreen
-                  />
-                </div>
-              );
-            }
+  // 1) 如果是 Google Drive → 用 iframe 预览
+  if (typeof isDrive === "function" && isDrive(url)) {
+    return (
+      <div className="aspect-video w-full overflow-hidden rounded-xl">
+        <iframe
+          src={toDrivePreview(url)}
+          className="w-full h-full"
+          allow="autoplay; fullscreen"
+          allowFullScreen
+        />
+      </div>
+    );
+  }
 
-            // 其他直链（如七牛 mp4）
-            if (url.endsWith(".mp4") || url.startsWith("/api/")) {
-              return (
-                <video className="w-full rounded-xl" controls preload="metadata" poster={v.poster} onContextMenu={(e)=>e.preventDefault()}>
-                  <source src={url} type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-              );
-            }
+  // 2) 其他一律用 <video>（即便有查询参数 ?e=... 也能播）
+  return (
+    <video
+      className="w-full rounded-xl"
+      controls
+      preload="metadata"
+      poster={v.poster}
+      onContextMenu={(e)=>e.preventDefault()}
+      playsInline
+    >
+      <source src={url} type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  );
+})()}
 
-            // 其他外部页面：给出“打开视频”按钮
-            return (
-              <a
-                className="w-full inline-flex items-center justify-center rounded-2xl px-3 py-2 text-sm font-medium transition border bg-white text-black hover:bg-neutral-100 border-neutral-200"
-                href={url}
-                target="_blank"
-                rel="noreferrer"
-              >
-                打开视频
-              </a>
-            );
-          })()}
 
           {v.desc && (
             <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
