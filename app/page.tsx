@@ -33,8 +33,8 @@ const projects = [
   {
     title: "沉浸式交互与音频《Echoes of the Witch’s Room》",
     role: "交互 / 音频 / 测试",
-    period: "2024.01–2025.04",
-    tags: ["Unity", "Audio", "Mixing"],
+    period: "2025.03–2025.07",
+    tags: ["Unity 3D", "Unity", "Audio", "Mixing","OpenXR","C#"],
     icon: <AudioLines className="h-5 w-5" />,
     desc: "交互触发与事件系统；音频区域/优先级；混音平衡与声像；用例与回归测试。",
     demo: "https://your-video-link.example/echoes",
@@ -42,7 +42,7 @@ const projects = [
   {
     title: "360° 全景沉浸式电影",
     role: "摄影 / 后期",
-    period: "2024.01–2025.04",
+    period: "2024.10–2024.12",
     tags: ["Insta360", "DaVinci", "8K"],
     icon: <Camera className="h-5 w-5" />,
     desc: "全景采拍、拼接与地平线校正；DaVinci 调色与平台适配（8K/6K equirectangular）。",
@@ -54,7 +54,7 @@ const projects = [
     period: "2024",
     tags: ["Maya", "Arnold", "PBR"],
     icon: <Box className="h-5 w-5" />,
-    desc: "实景还原；PBR/UV 与 Arnold 灯光渲染，输出高质量图集。",
+    desc: "实景1:1建模还原；PBR/UV 与 Arnold 灯光渲染，输出高质量图集。",
     demo: "https://your-link.example/env-design",
   },
   {
@@ -68,18 +68,18 @@ const projects = [
   },
   {
     title: "AR 游戏原型（Android，类“愤怒的小鸟”）",
-    role: "玩法与物理",
+    role: "交互，建模，玩法与物理",
     period: "2025",
-    tags: ["Unity", "AR"],
+    tags: ["Unity 3D", "Unity", "AR","C#"],
     icon: <Gamepad2 className="h-5 w-5" />,
-    desc: "抛掷轨迹与关卡交互验证；移动端性能与交互响应。",
+    desc: "准星与实体交互验证；准星在UI层级的有效拖拽与判定；移动端性能与交互响应。",
     demo: "https://your-video-link.example/ar-proto",
   },
   {
-    title: "VR 舌控交互研究",
-    role: "硬件交互研发",
-    period: "2025.06–2025.07",
-    tags: ["ESP8266", "FSR", "Unity"],
+    title: "舌眼交互：基于ESP32与眼动追踪开发的致力于无障碍访问VR的新型交互设备",
+    role: "硬件设计，开发，测试，通信开发",
+    period: "2025.03–2025.09",
+    tags: ["Unity 3D","ESP32", "FSR", "Unity","C#","C/C++"],
     icon: <Cpu className="h-5 w-5" />,
     desc: "ESP8266 + FSR 采集舌压信号；规划与眼动追踪联动，实现 VR UI 点击。",
     demo: "https://your-video-link.example/tongue",
@@ -94,10 +94,10 @@ const projects = [
     demo: "https://your-video-link.example/esp32s3",
   },
   {
-    title: "嵌入式小车/传感项目",
-    role: "硬件与控制",
-    period: "2025.05",
-    tags: ["DFRobot", "Raspberry Pi", "L298N", "IR"],
+    title: "嵌入式循迹小车/传感项目",
+    role: "硬件与控制,软件开发",
+    period: "2024.05",
+    tags: ["PID"],
     icon: <Cpu className="h-5 w-5" />,
     desc: "电机驱动与红外传感集成；基础避障/循迹验证。",
     demo: "https://your-video-link.example/robot",
@@ -159,7 +159,7 @@ export default function PortfolioSite() {
               Controller‑free XR · Multimodal Interaction
             </h1>
             <p className="mt-4 text-muted-foreground">
-              手势 × 舌控 × 视线（规划中）｜端到端工程化：从传感、算法到交互与评估。
+              舌控 × 视线｜端到端工程化：从传感、算法到交互与评估。
             </p>
             <div className="mt-6 flex flex-wrap gap-2">
               {highlights.map((h, i) => (<Tag key={i}>{h}</Tag>))}
