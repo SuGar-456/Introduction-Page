@@ -8,26 +8,26 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 
 const socials = [
-  { icon: <Github className="h-4 w-4" />, label: "GitHub", href: "https://github.com/your-handle" },
-  { icon: <Mail className="h-4 w-4" />, label: "Email", href: "mailto:you@example.com" },
+  { icon: <Github className="h-4 w-4" />, label: "GitHub", href: "https://github.com/SuGar-456" },
+  { icon: <Mail className="h-4 w-4" />, label: "Email", href: "ne24584@bristol.ac.uk" },
   { icon: <Globe className="h-4 w-4" />, label: "Google Scholar / Personal Site", href: "https://scholar.google.com/" },
 ]
 
 const highlights = [
   "学习能力强（快速上手新栈）",
-  "自研能力出众（端到端原型与工具化）",
-  "沟通效率高（多角色对齐与推进）",
-  "关注稳定与性能（FPS/内存/GC）",
+  "自研能力出众",
+  "沟通效率高",
+  "注重团队协作",
 ]
 
 const projects = [
   {
     title: "VR 游戏《Recursive Breakout》",
-    role: "交互工程师 / 核心玩法",
-    period: "2024.01–2025.04",
-    tags: ["Unity", "OpenXR", "XR Hands", "C#"],
+    role: "交互开发 / 核心玩法开发/测试",
+    period: "2025.03–2025.07",
+    tags: ["Unity 3D", "Unity","OpenXR", "XR Hands", "C#"],
     icon: <Gamepad2 className="h-5 w-5" />,
-    desc: "免手柄手势（捏合-拉伸-释放）、球体生成/发射与对象池、手部物理交互与帧率优化。",
+    desc: "免手柄的手势追踪（捏合-拉伸-释放）、球体生成/发射与对象池、手部物理交互与帧率优化。",
     demo: "https://your-video-link.example/vr-demo",
   },
   {
