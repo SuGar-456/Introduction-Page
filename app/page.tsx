@@ -15,20 +15,13 @@ const renders = [
     title: "MV 1.07 室内渲染",
     desc: "Maya + Arnold · PBR",
     images: [
-      "/renders/mv_107/overview.jpg",
-      "/renders/mv_107/detail_01.jpg",
-      "/renders/mv_107/detail_02.jpg",
-      "/renders/mv_107/wireframe.jpg",
+      "/renders/xuanran.jpg",
+      "/renders/17.jpg",
+      "/renders/11.jpg",
+      "/renders/4.jpg",
     ],
   },
-  {
-    title: "VR 道具",
-    desc: "低多边形 + 法线贴图",
-    images: [
-      "/renders/vr_prop/prop_01.jpg",
-      "/renders/vr_prop/prop_02.jpg",
-    ],
-  },
+  
 ];
 
 
