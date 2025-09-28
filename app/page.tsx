@@ -107,19 +107,19 @@ const videos = [
     title: "《Recursive Breakout》Promotional video",
     src: "https://drive.google.com/file/d/1r_IG0YEmtU_z0t8z_xsg-sJtnYKJjmeR/view?usp=sharing",
     poster: "/images/vr_demo.jpg",
-    desc:VR游戏《Recursive Breakout》宣传视频，目前该游戏暂未上架。
+    desc:"VR游戏《Recursive Breakout》宣传视频，目前该游戏暂未上架。"
   },
   {
     title: "《Recursive Breakout》Actual machine demonstration (VR screen recording)",
     src: "https://drive.google.com/file/d/1R_Z1JEpkM9NylP4kUasHU06nTM1LSSGO/view?usp=sharing",
     poster: "https://your-cdn.example/posters/echoes.jpg",
-    desc:VR游戏《Recursive Breakout》实机演示，受限于VR内置录屏限制某些画面质量与特效展现不明显。
+    desc:"VR游戏《Recursive Breakout》实机演示，受限于VR内置录屏限制某些画面质量与特效展现不明显。"
   },
   {
     title: "《Echoes of the Witch’s Room》",
     src: "https://your-video-host.example/360film.mp4",
     poster: "https://your-cdn.example/posters/360.jpg",
-    desc:VR游戏《Echoes of the Witch’s Room》实机演示，该项目专注于交互与音频设计，可以让没有音乐基础的人也能创造出听起来还不错的音乐。
+    desc:"VR游戏《Echoes of the Witch’s Room》实机演示，该项目专注于交互与音频设计，可以让没有音乐基础的人也能创造出听起来还不错的音乐。"
   },
 ]
 
