@@ -8,6 +8,6 @@ const nextConfig = {
   basePath: isProd ? `/${repo}` : '',
   assetPrefix: isProd ? `/${repo}/` : '',
 
-  trailingSlash: true,
+ //trailingSlash: true,
 }
 module.exports = nextConfig
