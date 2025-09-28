@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "Zibo He – Portfolio",
+  title: "Zibo He – Introduction",
   description: "Controller-free XR · Multimodal Interaction",
 }
 
