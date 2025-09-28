@@ -16,7 +16,7 @@ const toDrivePreview = (url: string) => {
 
 const socials = [
   { icon: <Github className="h-4 w-4" />, label: "GitHub", href: "https://github.com/SuGar-456" },
-  { icon: <Mail className="h-4 w-4" />, label: "Email", href: "ne24584@bristol.ac.uk" },
+  { icon: <Mail className="h-4 w-4" />, label: "Email", href: "mailto:ne24584@bristol.ac.uk" },
   { icon: <Globe className="h-4 w-4" />, label: "Google Scholar / Personal Site", href: "https://scholar.google.com/" },
 ]
 
@@ -88,17 +88,8 @@ const projects = [
     period: "2025.03–2025.09",
     tags: ["Unity 3D","ESP32", "FSR", "Unity","C#","C/C++"],
     icon: <Cpu className="h-5 w-5" />,
-    desc: "ESP8266 + FSR 采集舌压信号；规划与眼动追踪联动，实现 VR UI 点击。",
+    desc: "负责 ESP32-S3 硬件平台与传感器的设计与集成,设计电路并完成 PCB 打样与焊接。搭建 Wi-Fi + WebSocket 通信链路,实现低延迟事件传输;开发Unity/Quest 软件完成交互验证(点击、滑动、3D物品操作)。 提出并实现了一种舌眼多模态 VR 交互设备,将眼动追踪与基于ESP32的自研定制口部控制器相结合。使用手指模拟输入进行用户研究,评估 Unity/Quest 中的2D UI导航和3D 对象操作;结果显示与传统控制器相比具有更高的简单性。实现了从硬件到 VR 的实时 Wi-Fi 数据流,验证了该项目和未来量产化的可行性。"
     demo: "https://your-video-link.example/tongue",
-  },
-  {
-    title: "舌控扩展（XIAO ESP32S3 + FSR 阵列 + SoftPot）",
-    role: "原型系统",
-    period: "2025.07–至今",
-    tags: ["ESP32S3", "C/C++", "Unity"],
-    icon: <Cpu className="h-5 w-5" />,
-    desc: "点击/长按/双击/滑动与旋转识别；滑动趋势与阈值稳健性调参。",
-    demo: "https://your-video-link.example/esp32s3",
   },
   {
     title: "嵌入式循迹小车/传感项目",
@@ -116,16 +107,19 @@ const videos = [
     title: "《Recursive Breakout》Promotional video",
     src: "https://drive.google.com/file/d/1r_IG0YEmtU_z0t8z_xsg-sJtnYKJjmeR/view?usp=sharing",
     poster: "/images/vr_demo.jpg",
+    desc:VR游戏《Recursive Breakout》宣传视频，目前该游戏暂未上架。
   },
   {
-    title: "Echoes of the Witch’s Room – Teaser",
-    src: "https://your-video-host.example/echoes.mp4",
+    title: "《Recursive Breakout》Actual machine demonstration (VR screen recording)",
+    src: "https://drive.google.com/file/d/1R_Z1JEpkM9NylP4kUasHU06nTM1LSSGO/view?usp=sharing",
     poster: "https://your-cdn.example/posters/echoes.jpg",
+    desc:VR游戏《Recursive Breakout》实机演示，受限于VR内置录屏限制某些画面质量与特效展现不明显。
   },
   {
-    title: "360° Film – Trailer",
+    title: "《Echoes of the Witch’s Room》",
     src: "https://your-video-host.example/360film.mp4",
     poster: "https://your-cdn.example/posters/360.jpg",
+    desc:VR游戏《Echoes of the Witch’s Room》实机演示，该项目专注于交互与音频设计，可以让没有音乐基础的人也能创造出听起来还不错的音乐。
   },
 ]
 
@@ -148,7 +142,7 @@ export default function PortfolioSite() {
     <div className="min-h-screen text-foreground">
       <header className="sticky top-0 backdrop-blur bg-white/70 z-40 border-b">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <a href="#" className="font-semibold tracking-tight">Zibo He｜XR · HCI · Embedded</a>
+          <a href="#" className="font-semibold tracking-tight">Zibo He｜Augmented & Virtual Reality · XR · HCI · Embedded</a>
           <nav className="hidden sm:flex gap-4 text-sm">
             <a href="#projects" className="hover:underline">Projects</a>
             <a href="#videos" className="hover:underline">Video Demos</a>
@@ -166,7 +160,7 @@ export default function PortfolioSite() {
               Augmented & Virtual Reality · XR/HCI
             </h1>
             <p className="mt-4 text-muted-foreground">
-              增强现实、虚拟现实、XR/HCI。
+              增强现实、虚拟现实、XR/HCI
             </p>
             <div className="mt-6 flex flex-wrap gap-2">
               {highlights.map((h, i) => (<Tag key={i}>{h}</Tag>))}
