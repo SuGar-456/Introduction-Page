@@ -9,11 +9,28 @@ import { Badge } from '@/components/ui/badge'
 
 
 
+// 替换/新增在 app/page.tsx 顶部常量区
 const renders = [
-  { src: "/renders/mv_107_01.jpg", title: "MVB 1.07 室内渲染", desc: "Maya + Arnold · PBR" },
-  { src: "/renders/mv_107_02.jpg", title: "MVB 1.07 细节",   desc: "UV 展开 · 材质灯光" },
-  { src: "/renders/vr_prop_01.jpg", title: "VR 道具 01",    desc: "低多边形 + 法线贴图" },
+  {
+    title: "MV 1.07 室内渲染",
+    desc: "Maya + Arnold · PBR",
+    images: [
+      "/renders/mv_107/overview.jpg",
+      "/renders/mv_107/detail_01.jpg",
+      "/renders/mv_107/detail_02.jpg",
+      "/renders/mv_107/wireframe.jpg",
+    ],
+  },
+  {
+    title: "VR 道具",
+    desc: "低多边形 + 法线贴图",
+    images: [
+      "/renders/vr_prop/prop_01.jpg",
+      "/renders/vr_prop/prop_02.jpg",
+    ],
+  },
 ];
+
 
 
 const isDrive = (url: string) => /https?:\/\/drive\.google\.com\/file\/d\/[^/]+/i.test(url);
@@ -146,15 +163,9 @@ const Tag = ({ children }: { children: React.ReactNode }) => (
 )
 
 export default function PortfolioSite() {
-  // 这里是各种 useState/useMemo 等 Hook
-  const [lightbox, setLightbox] = React.useState<{
-    open: boolean;
-    renderIndex: number; // 打开的案例索引
-    imageIndex: number;  // 在该案例中的第几张（after + details）
-  }>({
-    open: false,
-    renderIndex: 0,
-    imageIndex: 0,
+ const [lightbox, setLightbox] = React.useState<{open:boolean; g:number; i:number}>({
+  open: false, g: 0, i: 0
+});
 
 
   return (
@@ -273,95 +284,90 @@ export default function PortfolioSite() {
         </div>
       </Section>
       
-      <Section id="gallery" title="Gallery">
+    <Section id="gallery" title="3D Gallery">
   <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    {renders.map((img, i) => (
-      <Card key={i} className="overflow-hidden group cursor-zoom-in" onClick={() => setLightbox({ open: true, renderIndex: i, imageIndex: 0 })}
-
-        <div className="relative aspect-[4/3] bg-muted">
-          {/* 用 <img>，图片在 public/ 下可直接以 / 开头访问 */}
+    {renders.map((grp, g) => (
+      <Card key={g} className="overflow-hidden">
+        {/* 封面图 */}
+        <button
+          className="relative aspect-[4/3] w-full bg-muted group cursor-zoom-in"
+          onClick={() => setLightbox({ open: true, g, i: 0 })}
+          title="点击放大"
+        >
           <img
-            src={img.src}
-            alt={img.title}
+            src={grp.images[0]}
+            alt={`${grp.title} 封面`}
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
             loading="lazy"
           />
-        </div>
+        </button>
+
         <CardContent className="p-4">
-          <div className="text-sm font-medium">{img.title}</div>
-          {img.desc && <div className="text-xs text-muted-foreground mt-1">{img.desc}</div>}
+          <div className="text-sm font-medium">{grp.title}</div>
+          {grp.desc && <div className="text-xs text-muted-foreground mt-1">{grp.desc}</div>}
+
+          {/* 组内缩略图（最多 4 张，可按需调整） */}
+          <div className="mt-3 grid grid-cols-4 gap-2">
+            {grp.images.slice(0, 4).map((src, i) => (
+              <button
+                key={i}
+                className="relative aspect-square bg-muted rounded-lg overflow-hidden"
+                onClick={() => setLightbox({ open: true, g, i })}
+                title="点击放大"
+              >
+                <img src={src} alt={`${grp.title} 预览 ${i+1}`} className="w-full h-full object-cover" loading="lazy" />
+              </button>
+            ))}
+          </div>
         </CardContent>
       </Card>
     ))}
   </div>
 
-  {/* Lightbox（点击卡片放大预览） */}
-{lightbox.open && (() => {
-  const r = renders[lightbox.renderIndex];
-  // 拼成一组可浏览的大图序列：先 after（如果有），再 details
-  const images = [
-    ...(r.after ? [{ src: r.after, caption: "渲染成品" }] : []),
-    ...(r.details || []),
-  ];
-  const idx = Math.min(lightbox.imageIndex, images.length - 1);
-  const go = (d: number) => setLightbox(s => ({
-    ...s,
-    imageIndex: Math.max(0, Math.min(images.length - 1, s.imageIndex + d))
-  }));
-
-  return (
+  {/* Lightbox：组内多图左右切换 */}
+  {lightbox.open && (
     <div
       className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm grid place-items-center p-4"
-      onClick={() => setLightbox({ open: false, renderIndex: 0, imageIndex: 0 })}
+      onClick={() => setLightbox({ open: false, g: 0, i: 0 })}
     >
-      <div className="relative max-w-6xl w-full" onClick={(e) => e.stopPropagation()}>
-        <img src={images[idx].src} alt={r.title} className="w-full h-auto rounded-2xl" />
+      <div className="relative max-w-6xl w-full" onClick={(e)=>e.stopPropagation()}>
+        <img
+          src={renders[lightbox.g].images[lightbox.i]}
+          alt={`${renders[lightbox.g].title} - ${lightbox.i+1}`}
+          className="w-full h-auto rounded-2xl"
+        />
+
         {/* 关闭 */}
         <button
           className="absolute top-3 right-3 rounded-full bg-white/90 px-3 py-1 text-sm"
-          onClick={() => setLightbox({ open: false, renderIndex: 0, imageIndex: 0 })}
-        >
-          关闭
-        </button>
+          onClick={() => setLightbox({ open: false, g: 0, i: 0 })}
+        >关闭</button>
+
         {/* 左右切换 */}
-        {idx > 0 && (
+        {lightbox.i > 0 && (
           <button
             className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 rounded-full px-3 py-1 text-sm"
-            onClick={() => go(-1)}
+            onClick={() => setLightbox(s => ({ ...s, i: s.i - 1 }))}
           >←</button>
         )}
-        {idx < images.length - 1 && (
+        {lightbox.i < renders[lightbox.g].images.length - 1 && (
           <button
             className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 rounded-full px-3 py-1 text-sm"
-            onClick={() => go(1)}
+            onClick={() => setLightbox(s => ({ ...s, i: s.i + 1 }))}
           >→</button>
         )}
-        {/* 标题与说明 */}
-        <div className="mt-3 text-white text-sm opacity-90">
-          <div className="font-medium">{r.title}</div>
-          {r.desc && <div className="text-white/80 mt-1">{r.desc}</div>}
-          {images[idx].caption && <div className="text-white/70 mt-1">{images[idx].caption}</div>}
-        </div>
 
-        {/* 缩略图条（可选） */}
-        <div className="mt-3 flex gap-2 overflow-x-auto">
-          {images.map((im, i2) => (
-            <button
-              key={i2}
-              onClick={() => setLightbox(s => ({ ...s, imageIndex: i2 }))}
-              className={`h-14 aspect-video rounded-lg overflow-hidden border ${i2===idx ? "border-white" : "border-white/40"}`}
-              title={im.caption || ""}
-            >
-              <img src={im.src} alt={im.caption || ""} className="h-full w-full object-cover" />
-            </button>
-          ))}
+        <div className="mt-3 text-white text-sm opacity-90">
+          <div className="font-medium">{renders[lightbox.g].title}</div>
+          {renders[lightbox.g].desc && <div className="text-white/80 mt-1">{renders[lightbox.g].desc}</div>}
+          <div className="text-white/70 mt-1">{lightbox.i + 1} / {renders[lightbox.g].images.length}</div>
         </div>
       </div>
     </div>
-  );
-})()}
-
+  )}
 </Section>
+
+
 
 
       <Section id="about" title="About">
