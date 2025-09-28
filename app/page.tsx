@@ -155,7 +155,7 @@ export default function PortfolioSite() {
     open: false,
     renderIndex: 0,
     imageIndex: 0,
-  });
+
 
   return (
     <div className="min-h-screen text-foreground">
