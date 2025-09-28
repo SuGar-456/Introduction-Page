@@ -7,6 +7,13 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 
+
+const isDrive = (url: string) => /https?:\/\/drive\.google\.com\/file\/d\/[^/]+/i.test(url);
+const toDrivePreview = (url: string) => {
+  const m = url.match(/\/file\/d\/([^/]+)/);
+  return m ? `https://drive.google.com/file/d/${m[1]}/preview` : url;
+};
+
 const socials = [
   { icon: <Github className="h-4 w-4" />, label: "GitHub", href: "https://github.com/SuGar-456" },
   { icon: <Mail className="h-4 w-4" />, label: "Email", href: "ne24584@bristol.ac.uk" },
@@ -40,10 +47,10 @@ const projects = [
     demo: "https://your-video-link.example/echoes",
   },
   {
-    title: "360° 全景沉浸式电影",
+    title: "360° 全景沉浸式电影《Introduction Bristol》",
     role: "摄影 / 后期",
     period: "2024.10–2024.12",
-    tags: ["Insta360", "DaVinci", "8K"],
+    tags: ["Insta360", "DaVinci", "8K","VR"],
     icon: <Camera className="h-5 w-5" />,
     desc: "全景采拍、拼接与地平线校正；DaVinci 调色与平台适配（8K/6K equirectangular）。",
     demo: "https://your-video-link.example/360film",
@@ -221,17 +228,28 @@ export default function PortfolioSite() {
                 <CardTitle className="text-base">{v.title}</CardTitle>
               </CardHeader>
               <CardContent>
-                {v.src.endsWith(".mp4") ? (
-                  <video className="w-full rounded-xl" controls preload="metadata" poster={v.poster}>
-                    <source src={v.src} type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                ) : (
-                  <a className="w-full inline-flex items-center justify-center rounded-2xl px-3 py-2 text-sm font-medium transition border bg-white text-black hover:bg-neutral-100 border-neutral-200"
-                    href={v.src} target="_blank" rel="noreferrer">
-                    <ExternalLink className="h-4 w-4 mr-2" /> 打开视频
-                  </a>
-                )}
+            
+                {isDrive(v.src) ? (
+                    <div className="aspect-video w-full overflow-hidden rounded-xl">
+                      <iframe
+                        src={toDrivePreview(v.src)}
+                        className="w-full h-full"
+                        allow="autoplay; fullscreen"
+                        allowFullScreen
+                      />
+                    </div>
+                  ) : v.src.endsWith(".mp4") ? (
+                    <video className="w-full rounded-xl" controls preload="metadata" poster={v.poster}>
+                      <source src={v.src} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  ) : (
+                    <a className="w-full inline-flex items-center justify-center rounded-2xl px-3 py-2 text-sm font-medium transition border bg-white text-black hover:bg-neutral-100 border-neutral-200"
+                       href={v.src} target="_blank" rel="noreferrer">
+                      打开视频
+                    </a>
+                    )}
+
               </CardContent>
             </Card>
           ))}
