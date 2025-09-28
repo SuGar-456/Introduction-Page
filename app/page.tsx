@@ -8,6 +8,14 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 
 
+
+const renders = [
+  { src: "/renders/mv_107_01.jpg", title: "MVB 1.07 室内渲染", desc: "Maya + Arnold · PBR" },
+  { src: "/renders/mv_107_02.jpg", title: "MVB 1.07 细节",   desc: "UV 展开 · 材质灯光" },
+  { src: "/renders/vr_prop_01.jpg", title: "VR 道具 01",    desc: "低多边形 + 法线贴图" },
+];
+
+
 const isDrive = (url: string) => /https?:\/\/drive\.google\.com\/file\/d\/[^/]+/i.test(url);
 const toDrivePreview = (url: string) => {
   const m = url.match(/\/file\/d\/([^/]+)/);
@@ -138,6 +146,11 @@ const Tag = ({ children }: { children: React.ReactNode }) => (
 )
 
 export default function PortfolioSite() {
+  const [lightbox, setLightbox] = React.useState<{open:boolean; index:number}>({
+  open: false,
+  index: 0,
+});
+
   return (
     <div className="min-h-screen text-foreground">
       <header className="sticky top-0 backdrop-blur bg-white/70 z-40 border-b">
