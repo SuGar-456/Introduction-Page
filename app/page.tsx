@@ -156,10 +156,10 @@ export default function PortfolioSite() {
           className="grid lg:grid-cols-2 gap-8 items-center">
           <div>
             <h1 className="text-4xl sm:text-5xl font-semibold leading-tight tracking-tight">
-              Controller‑free XR · Multimodal Interaction
+              Augmented & Virtual Reality · XR/HCI
             </h1>
             <p className="mt-4 text-muted-foreground">
-              舌控 × 视线｜端到端工程化：从传感、算法到交互与评估。
+              增强现实、虚拟现实、XR/HCI。
             </p>
             <div className="mt-6 flex flex-wrap gap-2">
               {highlights.map((h, i) => (<Tag key={i}>{h}</Tag>))}
@@ -243,8 +243,8 @@ export default function PortfolioSite() {
           <Card className="lg:col-span-2">
             <CardHeader><CardTitle>研究兴趣 / Interests</CardTitle></CardHeader>
             <CardContent className="space-y-3 text-sm">
-              <p>XR/HCI（多模态无手柄交互：手势 × 舌控 × 视线），可访问性与可用性评估，工具链与低延迟系统。</p>
-              <p>Controller-free Multimodal XR Interaction (Hands–Tongue–Gaze), Accessibility & Usability, Authoring Tools, Low‑latency Systems.</p>
+              <p>增强现实（AR）、虚拟现实（VR）、XR/HCI。</p>
+              <p>Augmented Reality (AR), Virtual Reality (VR), XR/HCI.</p>
             </CardContent>
           </Card>
           <Card>
