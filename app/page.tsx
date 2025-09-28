@@ -146,9 +146,12 @@ const Tag = ({ children }: { children: React.ReactNode }) => (
 )
 
 export default function PortfolioSite() {
-  const [lightbox, setLightbox] = React.useState<{open:boolean; index:number}>({
-  open: false,
-  index: 0,
+ const [lightbox, setLightbox] = React.useState<{
+  open: boolean;
+  renderIndex: number; // 打开的案例索引
+  imageIndex: number;  // 在该案例中的第几张（after + details）
+}>({ open: false, renderIndex: 0, imageIndex: 0 });
+
 });
 
   return (
@@ -289,49 +292,71 @@ export default function PortfolioSite() {
   </div>
 
   {/* Lightbox（点击卡片放大预览） */}
-  {lightbox.open && (
+{lightbox.open && (() => {
+  const r = renders[lightbox.renderIndex];
+  // 拼成一组可浏览的大图序列：先 after（如果有），再 details
+  const images = [
+    ...(r.after ? [{ src: r.after, caption: "渲染成品" }] : []),
+    ...(r.details || []),
+  ];
+  const idx = Math.min(lightbox.imageIndex, images.length - 1);
+  const go = (d: number) => setLightbox(s => ({
+    ...s,
+    imageIndex: Math.max(0, Math.min(images.length - 1, s.imageIndex + d))
+  }));
+
+  return (
     <div
       className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm grid place-items-center p-4"
-      onClick={() => setLightbox({ open: false, index: 0 })}
+      onClick={() => setLightbox({ open: false, renderIndex: 0, imageIndex: 0 })}
     >
-      <div className="relative max-w-6xl w-full">
-        <img
-          src={renders[lightbox.index].src}
-          alt={renders[lightbox.index].title}
-          className="w-full h-auto rounded-2xl"
-        />
-        {/* 关闭按钮 */}
+      <div className="relative max-w-6xl w-full" onClick={(e) => e.stopPropagation()}>
+        <img src={images[idx].src} alt={r.title} className="w-full h-auto rounded-2xl" />
+        {/* 关闭 */}
         <button
           className="absolute top-3 right-3 rounded-full bg-white/90 px-3 py-1 text-sm"
-          onClick={(e) => { e.stopPropagation(); setLightbox({ open: false, index: 0 }); }}
+          onClick={() => setLightbox({ open: false, renderIndex: 0, imageIndex: 0 })}
         >
           关闭
         </button>
-        {/* 左右切换（可选） */}
-        {lightbox.index > 0 && (
+        {/* 左右切换 */}
+        {idx > 0 && (
           <button
             className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 rounded-full px-3 py-1 text-sm"
-            onClick={(e) => { e.stopPropagation(); setLightbox(s => ({ ...s, index: s.index - 1 })); }}
-          >
-            ←
-          </button>
+            onClick={() => go(-1)}
+          >←</button>
         )}
-        {lightbox.index < renders.length - 1 && (
+        {idx < images.length - 1 && (
           <button
             className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 rounded-full px-3 py-1 text-sm"
-            onClick={(e) => { e.stopPropagation(); setLightbox(s => ({ ...s, index: s.index + 1 })); }}
-          >
-            →
-          </button>
+            onClick={() => go(1)}
+          >→</button>
         )}
-        {/* 标题/描述 */}
+        {/* 标题与说明 */}
         <div className="mt-3 text-white text-sm opacity-90">
-          <div className="font-medium">{renders[lightbox.index].title}</div>
-          {renders[lightbox.index].desc && <div className="text-white/80 mt-1">{renders[lightbox.index].desc}</div>}
+          <div className="font-medium">{r.title}</div>
+          {r.desc && <div className="text-white/80 mt-1">{r.desc}</div>}
+          {images[idx].caption && <div className="text-white/70 mt-1">{images[idx].caption}</div>}
+        </div>
+
+        {/* 缩略图条（可选） */}
+        <div className="mt-3 flex gap-2 overflow-x-auto">
+          {images.map((im, i2) => (
+            <button
+              key={i2}
+              onClick={() => setLightbox(s => ({ ...s, imageIndex: i2 }))}
+              className={`h-14 aspect-video rounded-lg overflow-hidden border ${i2===idx ? "border-white" : "border-white/40"}`}
+              title={im.caption || ""}
+            >
+              <img src={im.src} alt={im.caption || ""} className="h-full w-full object-cover" />
+            </button>
+          ))}
         </div>
       </div>
     </div>
-  )}
+  );
+})()}
+
 </Section>
 
 
