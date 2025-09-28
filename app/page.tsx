@@ -134,21 +134,21 @@ const projects = [
 const videos = [
   {
     title: "《Recursive Breakout》Promotional video",
-    cnSrc: "https://www.bilibili.com/video/BV15t421H78G/?spm_id_from=333.1387.homepage.video_card.click&vd_source=1733d8d14092502975a796266007cf97",
+    cnSrc: "/qiniu/VRgame_A.mp4",
     globalSrc: "https://drive.google.com/file/d/1r_IG0YEmtU_z0t8z_xsg-sJtnYKJjmeR/view?usp=sharing",
     poster: "/images/vr_demo.jpg",
     desc:"VR游戏 Recursive Breakout 宣传视频，目前该游戏暂未上架。"
   },
   {
     title: "《Recursive Breakout》Actual machine demonstration (VR screen recording)",
-    cnSrc: "http://t3aiodj0n.hn-bkt.clouddn.com/vrgame.mp4",
+    cnSrc: "/qiniu/vrgame.mp4",
     globalSrc: "https://drive.google.com/file/d/1R_Z1JEpkM9NylP4kUasHU06nTM1LSSGO/view?usp=sharing",
     poster: "https://your-cdn.example/posters/echoes.jpg",
     desc:"VR游戏 Recursive Breakout 实机演示，受限于VR内置录屏限制某些画面质量与特效展现不明显。"
   },
   {
     title: "《Echoes of the Witch’s Room》",
-    cnSrc: "http://t3aiodj0n.hn-bkt.clouddn.com/Echoes%20of%20the%20Witch%27s%20Room.mov",
+    cnSrc: "/qiniu/Echoes%20of%20the%20Witch%27s%20Room.mov",
     globalSrc: "https://drive.google.com/file/d/1XNL4mqf7aI9LkQ2XapNrBy9ahEFPIbEa/view?usp=sharing",
     poster: "https://your-cdn.example/posters/360.jpg",
     desc:"VR游戏 Echoes of the Witch’s Room 实机演示，该项目专注于交互与音频设计，可以让没有音乐基础的人也能创造出听起来还不错的音乐。"
