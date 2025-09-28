@@ -9,16 +9,21 @@ import { Badge } from '@/components/ui/badge'
 
 
 
-// 替换/新增在 app/page.tsx 顶部常量区
+
 const renders = [
   {
-    title: "MV 1.07 室内渲染",
-    desc: "Maya + Arnold · PBR",
+    title: "MVB 1.07 室内渲染",
+    desc: "Maya 1：1还原",
     images: [
       "/renders/xuanran.jpg",
       "/renders/17.jpg",
       "/renders/11.jpg",
       "/renders/4.jpg",
+      "/renders/12.jpg",
+      "/renders/5.jpg",
+      "/renders/7.jpg",
+      "/renders/8.jpg",
+      
     ],
   },
   
@@ -135,7 +140,7 @@ const videos = [
   },
   {
     title: "《Echoes of the Witch’s Room》",
-    src: "https://your-video-host.example/360film.mp4",
+    src: "https://drive.google.com/file/d/1XNL4mqf7aI9LkQ2XapNrBy9ahEFPIbEa/view?usp=sharing",
     poster: "https://your-cdn.example/posters/360.jpg",
     desc:"VR游戏 Echoes of the Witch’s Room 实机演示，该项目专注于交互与音频设计，可以让没有音乐基础的人也能创造出听起来还不错的音乐。"
   },
