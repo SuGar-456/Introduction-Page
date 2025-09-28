@@ -107,7 +107,7 @@ const videos = [
     title: "《Recursive Breakout》Promotional video",
     src: "https://drive.google.com/file/d/1r_IG0YEmtU_z0t8z_xsg-sJtnYKJjmeR/view?usp=sharing",
     poster: "/images/vr_demo.jpg",
-    desc:"VR游戏《Recursive Breakout》宣传视频，目前该游戏暂未上架。"
+    desc:"VR游戏<<Recursive Breakout>>宣传视频，目前该游戏暂未上架。"
   },
   {
     title: "《Recursive Breakout》Actual machine demonstration (VR screen recording)",
