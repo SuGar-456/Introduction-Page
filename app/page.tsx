@@ -113,9 +113,9 @@ const projects = [
 
 const videos = [
   {
-    title: "VR Hand-Tracking Demo",
-    src: "https://your-video-host.example/vr_demo.mp4",
-    poster: "https://your-cdn.example/posters/vr_demo.jpg",
+    title: "《Recursive Breakout》Promotional video",
+    src: "https://drive.google.com/file/d/1r_IG0YEmtU_z0t8z_xsg-sJtnYKJjmeR/view?usp=sharing",
+    poster: "/images/vr_demo.jpg",
   },
   {
     title: "Echoes of the Witch’s Room – Teaser",
