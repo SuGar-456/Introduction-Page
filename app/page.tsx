@@ -134,7 +134,7 @@ const projects = [
 const videos = [
   {
     title: "《Recursive Breakout》Promotional video",
-    cnSrc: "http://t3aiodj0n.hn-bkt.clouddn.com/VRgame_A.mp4",
+    cnSrc: "https://www.bilibili.com/video/BV15t421H78G/?spm_id_from=333.1387.homepage.video_card.click&vd_source=1733d8d14092502975a796266007cf97",
     globalSrc: "https://drive.google.com/file/d/1r_IG0YEmtU_z0t8z_xsg-sJtnYKJjmeR/view?usp=sharing",
     poster: "/images/vr_demo.jpg",
     desc:"VR游戏 Recursive Breakout 宣传视频，目前该游戏暂未上架。"
