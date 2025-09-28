@@ -275,7 +275,8 @@ const [lightbox, setLightbox] = React.useState<{
       <Section id="gallery" title="Gallery">
   <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
     {renders.map((img, i) => (
-      <Card key={i} className="overflow-hidden group cursor-zoom-in" onClick={() => setLightbox({ open: true, index: i })}>
+      <Card key={i} className="overflow-hidden group cursor-zoom-in" onClick={() => setLightbox({ open: true, renderIndex: i, imageIndex: 0 })}
+
         <div className="relative aspect-[4/3] bg-muted">
           {/* 用 <img>，图片在 public/ 下可直接以 / 开头访问 */}
           <img
