@@ -8,7 +8,13 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 
 
-
+type VideoItem = {
+  title: string;
+  cnSrc?: string;
+  globalSrc?: string;
+  poster?: string;
+  desc?: string;
+};
 
 const renders = [
   {
@@ -283,7 +289,7 @@ React.useEffect(() => { if (typeof window !== "undefined") localStorage.setItem(
           {(() => {
             const url =
               (pref === "cn" ? v.cnSrc : v.globalSrc) ||
-              v.cnSrc || v.globalSrc || v.src || "";
+              v.cnSrc || v.globalSrc || "";
 
             if (!url) return <div className="text-sm text-muted-foreground">暂无可用源</div>;
 
