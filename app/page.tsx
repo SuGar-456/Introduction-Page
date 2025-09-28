@@ -146,15 +146,16 @@ const Tag = ({ children }: { children: React.ReactNode }) => (
 )
 
 export default function PortfolioSite() {
-const [lightbox, setLightbox] = React.useState<{
-  open: boolean;
-  renderIndex: number; // 打开的案例索引
-  imageIndex: number;  // 在该案例中的第几张（after + details）
-}>({
-  open: false,
-  renderIndex: 0,
-  imageIndex: 0,
-});
+  // 这里是各种 useState/useMemo 等 Hook
+  const [lightbox, setLightbox] = React.useState<{
+    open: boolean;
+    renderIndex: number; // 打开的案例索引
+    imageIndex: number;  // 在该案例中的第几张（after + details）
+  }>({
+    open: false,
+    renderIndex: 0,
+    imageIndex: 0,
+  });
 
   return (
     <div className="min-h-screen text-foreground">
